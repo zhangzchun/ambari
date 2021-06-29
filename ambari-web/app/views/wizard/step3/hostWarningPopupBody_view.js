@@ -41,7 +41,7 @@ App.WizardStep3HostWarningPopupBody = Em.View.extend({
      * Content has default value "All Hosts" to bind selection to category
      * @type {string[]}
      */
-    content: ['All Hosts'],
+    content: ['所有主机'],
 
     /**
      * List of filtered hostnames
@@ -122,7 +122,7 @@ App.WizardStep3HostWarningPopupBody = Em.View.extend({
    * Selected category
    * @type {string}
    */
-  category: 'All Hosts',
+  category: '所有主机',
 
   /**
    * List of warnings for selected <code>category</code>

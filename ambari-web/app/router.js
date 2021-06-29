@@ -483,7 +483,7 @@ App.Router = Em.Router.extend({
    */
   showLoginMessageSuccessCallback: function (data, opt, params) {
     try {
-      var response = JSON.parse(data.Settings.content.replace(/\n/g, "\\n"))
+      var response = JSON.parse(data.Settings.content.replace(/\n/g, "\\n"));
     } catch (e) {
       this.setClusterData(data, opt, params);
       return false;

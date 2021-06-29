@@ -235,6 +235,11 @@ var urls = {
     'mock': '/data/background_operations/host_upgrade_tasks.json'
   },
 
+  'service.ambari': {
+    'real': '/services/AMBARI?fields=components/RootServiceComponents',
+    'mock': '/data/services/ambari.json'
+  },
+
   'ambari.service.load_server_version': {
     'real': '/services/AMBARI?fields=components/RootServiceComponents/component_version&components/RootServiceComponents/component_name=AMBARI_SERVER&minimal_response=true',
     'mock': '/data/services/ambari.json'
@@ -695,57 +700,6 @@ var urls = {
       }
     }
   },
-
-  'service.item.updateHBaseReplication': {
-    'real': '/clusters/{clusterName}/requests',
-    'mock': '',
-    'format': function (data) {
-      return {
-        type: 'POST',
-        data: JSON.stringify({
-          RequestInfo: {
-            'context': Em.I18n.t('services.service.actions.run.updateHBaseReplication.context'),
-            'command': 'UPDATE_REPLICATION',
-            "parameters": {
-              "replication_cluster_keys": data.replication_cluster_keys,
-              "replication_peers": data.replication_peers
-            }
-          },
-          "Requests/resource_filters": [{
-            'service_name': 'HBASE',
-            'component_name': 'HBASE_MASTER',
-            'hosts': data.hosts
-          }]
-        })
-      }
-    }
-  },
-
-  'service.item.stopHBaseReplication': {
-    'real': '/clusters/{clusterName}/requests',
-    'mock': '',
-    'format': function (data) {
-      return {
-        type: 'POST',
-        data: JSON.stringify({
-          RequestInfo: {
-            'context': Em.I18n.t('services.service.actions.run.stopHBaseReplication.context'),
-            'command': 'STOP_REPLICATION',
-            "parameters": {
-              "replication_peers": data.replication_peers
-            }
-          },
-          "Requests/resource_filters": [{
-            'service_name': 'HBASE',
-            'component_name': 'HBASE_MASTER',
-            'hosts': data.hosts
-          }]
-        })
-      }
-    }
-  },
-
-
 
   'service.item.executeCustomCommand': {
     'real': '/clusters/{clusterName}/requests',
@@ -2099,7 +2053,7 @@ var urls = {
     'type': 'DELETE'
   },
   'wizard.service_components': {
-    'real': '{stackUrl}/services?fields=StackServices/*,components/*,components/dependencies/Dependencies/scope,components/dependencies/Dependencies/service_name,components/dependencies/Dependencies/type,artifacts/Artifacts/artifact_name',
+    'real': '{stackUrl}/services?fields=StackServices/*,components/*,components/dependencies/Dependencies/scope,components/dependencies/Dependencies/service_name,artifacts/Artifacts/artifact_name',
     'mock': '/data/stacks/HDP-2.1/service_components.json'
   },
   'wizard.step9.installer.get_host_status': {
@@ -2959,7 +2913,7 @@ var urls = {
     mock: '/data/configurations/service_version.json'
   },
   'service.serviceConfigVersions.get.multiple': {
-    real: '/clusters/{clusterName}/configurations/service_config_versions?(service_name={serviceName}%26service_config_version.in({serviceConfigVersions})){additionalParams}',
+    real: '/clusters/{clusterName}/configurations/service_config_versions?(service_name={serviceName}&service_config_version.in({serviceConfigVersions})){additionalParams}',
     mock: '/data/configurations/service_version.json',
     format: function (data) {
       return {
@@ -3266,7 +3220,7 @@ var urls = {
     mock: '',
     format: function (data) {
       return {
-        url: 'http://' + data.hsiHost + ':' + data.port + '/leader'
+        url: data.proto + '://' + data.hsiHost + ':' + data.port + '/leader'
       }
     }
   }
@@ -3320,6 +3274,10 @@ var formatRequest = function (data) {
 
   if (this.format) {
     jQuery.extend(opt, this.format(data, opt));
+  }
+  if (!('headers' in opt && 'Content-Type' in opt.headers) && opt.contentType === undefined) {
+    // With the default www-url-form-encoded Content-Type KNOX would corrupt the json content.
+    opt.headers['Content-Type'] = 'text/plain';
   }
   var statusCode = jQuery.extend({}, require('data/statusCodes'));
   statusCode['404'] = function () {

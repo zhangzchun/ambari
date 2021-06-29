@@ -44,7 +44,7 @@
     </div>
   </div>
 {{/if}}
-
+<!-- main -->
 <div id="main">
   <div id="top-nav">
     {{#if App.router.loggedIn}}
@@ -146,9 +146,17 @@
                 <span class="alerts-label dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                       aria-expanded="false">
                   <span class="glyphicon glyphicon-bell"></span>
-                  {{view App.AlertBadgeView
-                    criticalCountBinding="App.router.mainAlertDefinitionsController.criticalAlertInstancesCount"
-                    warningCountBinding="App.router.mainAlertDefinitionsController.warningAlertInstancesCount"}}
+                  {{#if App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount}}
+                  {{! alerts exist }}
+                    <span {{bindAttr class=":numberCircle App.router.mainAlertDefinitionsController.isCriticalAlerts:alert-crit-count:alert-warn-count"}}>
+                      {{App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount}}
+                    </span>
+                  {{else}}
+                  {{! no alerts }}
+                    <span {{translateAttr title="titlebar.alerts.noAlerts"}} class="numberCircle alerts-none-count">
+                      {{App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount}}
+                    </span>
+                  {{/if}}
                 </span>
                 <div id="notifications-dropdown" class="dropdown-menu row">
                   {{view App.AlertInstancesPopupView}}
@@ -171,8 +179,10 @@
         </div>
       </nav>
     {{else}}
+        <!-- login header -->
       <nav class="navigation-bar-container login-header">
         <ul class="side-nav-header nav nav-pills nav-stacked">
+            <!-- navigation-header -->
           <li class="navigation-header">
             <a class="ambari-logo">
               <img src="/img/ambari-logo.png" alt="Apache Ambari" title="Apache Ambari" {{QAAttr "ambari-logo"}}>
@@ -187,6 +197,7 @@
   </div>
 
   <div class="container main-container">
+      <!-- content -->
     <div id="content">
       {{#if App.wizardIsNotFinished}}
         <div class="ru-badge row">
@@ -210,12 +221,14 @@
           {{/if}}
         </div>
         <div class="row">
+            <!-- logged in -->
           {{#if App.router.mainAdminStackAndUpgradeController.isFinalizeItem}}
           <p class="col-md-10 col-md-offset-1 alert alert-danger">{{t admin.stackVersions.version.upgrade.notFinalized.warning}}</p>
           {{/if}}
         </div>
       {{/if}}
       {{outlet}}
+        <!-- router view --main.hbs -->
     </div>
   </div>
 </div>

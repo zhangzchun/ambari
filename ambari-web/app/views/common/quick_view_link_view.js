@@ -109,9 +109,7 @@ App.QuickLinksView = Em.View.extend({
     if (App.get('router.clusterController.isServiceMetricsLoaded')) {
       this.setConfigProperties().done((configProperties) => {
         this.get('configProperties').pushObjects(configProperties);
-        this.getQuickLinksHosts().fail(() => {
-          this.set('showNoLinks', true);
-        });
+        this.getQuickLinksHosts();
       });
     }
   }.observes(
@@ -420,14 +418,17 @@ App.QuickLinksView = Em.View.extend({
 
       var links = Em.get(quickLinksConfig, 'links');
       links.forEach(function (link) {
-        var publicHostName = this.publicHostName(link, hosts, protocol);
-        if (publicHostName) {
-          if (link.protocol) {
-            protocol = this.setProtocol(configProperties, link.protocol);
-          }
-          var newItem = this.getHostLink(link, publicHostName, protocol, configProperties, response); //quicklink generated for the hbs template
-          if (!Em.isNone(newItem)) {
-            quickLinks.push(newItem);
+        var isRelatedComponentInstalled = this.isRelatedComponentInstalled(link);
+        if (isRelatedComponentInstalled) {
+          var publicHostName = this.publicHostName(link, hosts, protocol);
+          if (publicHostName) {
+            if (link.protocol) {
+              protocol = this.setProtocol(configProperties, link.protocol);
+            }
+            var newItem = this.getHostLink(link, publicHostName, protocol, configProperties, response); //quicklink generated for the hbs template
+            if (!Em.isNone(newItem)) {
+              quickLinks.push(newItem);
+            }
           }
         }
       }, this);
@@ -482,7 +483,8 @@ App.QuickLinksView = Em.View.extend({
       links.forEach(function (link) {
         var linkRemoved = Em.get(link, 'removed');
         var url = Em.get(link, 'url');
-        if (url && !linkRemoved) {
+        var isRelatedComponentInstalled = this.isRelatedComponentInstalled(link);
+        if (url && !linkRemoved && isRelatedComponentInstalled) {
           var hostNameRegExp = new RegExp('([\\w\\W]*):\\d+');
           if (serviceName === 'HDFS') {
             var config;
@@ -876,5 +878,14 @@ App.QuickLinksView = Em.View.extend({
         App.tooltip($(`[rel="${this.get('tooltipAttribute')}"]`));
       }
     });
-  }.observes('showQuickLinks', 'isLoaded', 'quickLinksArray.length')
+  }.observes('showQuickLinks', 'isLoaded', 'quickLinksArray.length'),
+
+  /**
+   * Check if host component related to quickLink is installed
+   * @param quickLink
+   * @returns {Boolean}
+   */
+  isRelatedComponentInstalled: function (quickLink) {
+    return App.HostComponent.find().someProperty('componentName', quickLink.component_name);
+  }
 });

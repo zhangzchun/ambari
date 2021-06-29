@@ -32,12 +32,12 @@ App.HostInfo = Ember.Object.extend({
   bootStatusForDisplay: Em.computed.getByKey('bootStatusForDisplayMap', 'bootStatus', 'Registering'),
 
   bootStatusForDisplayMap: {
-    PENDING: 'Preparing',
-    REGISTERED: 'Success',
-    FAILED: 'Failed',
-    RUNNING: 'Installing',
-    DONE: 'Registering',
-    REGISTERING: 'Registering'
+    PENDING: '准备中',
+    REGISTERED: '成功',
+    FAILED: '失败',
+    RUNNING: '安装中',
+    DONE: '注册中',
+    REGISTERING: '注册中'
   },
 
   bootBarColor: Em.computed.getByKey('bootBarColorMap', 'bootStatus', 'progress-bar-info'),

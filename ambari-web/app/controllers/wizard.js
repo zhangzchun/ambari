@@ -262,7 +262,7 @@ App.WizardController = Em.Controller.extend(App.LocalStorage, App.ThemesMappingM
           App.router.send('gotoStep' + step);
           this.hide();
         },
-        body: "If you proceed to go back to Step " + step + ", you will lose any changes you have made beyond this step"
+        body: "如果继续返回到步骤"+step+"，将丢失在此步骤之后所做的任何更改。"
       });
     } else {
       App.router.send('gotoStep' + step);
@@ -1529,5 +1529,18 @@ App.WizardController = Em.Controller.extend(App.LocalStorage, App.ThemesMappingM
         });
       }
     });
+  },
+
+  /**
+   * Replace placeholders for config properties which have dynamic names/values with actual data
+   * @param value
+   * @param dependencies
+   * @returns {*}
+     */
+  replaceDependencies: function (value, dependencies) {
+    Em.keys(dependencies).forEach(function (key) {
+      value = value.replace(new RegExp('{{' + key + '}}', 'g'), dependencies[key]);
+    });
+    return value;
   }
 });

@@ -1,0 +1,294 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * This file only for variables and mixins!
+ */
+/************************************************************************
+* Health status(service/host/host component health)icon colors
+***********************************************************************/
+/************************************************************************
+* Health status(service/host/host component health)icon colors ends
+***********************************************************************/
+@-webkit-keyframes orangePulse {
+  from {
+    background-color: #FDB82F;
+  }
+  50% {
+    background-color: #fd910e;
+  }
+  to {
+    background-color: #FDB82F;
+  }
+}
+@-moz-keyframes orangePulse {
+  from {
+    background-color: #FDB82F;
+  }
+  50% {
+    background-color: #fd910e;
+  }
+  to {
+    background-color: #FDB82F;
+  }
+}
+@keyframes orangePulse {
+  0% {
+    background-color: #FDB82F;
+  }
+  50% {
+    background-color: #fd910e;
+  }
+  100% {
+    background-color: #FDB82F;
+  }
+}
+@-webkit-keyframes bluePulse {
+  from {
+    background-color: #118fff;
+  }
+  50% {
+    background-color: #006DCC;
+  }
+  to {
+    background-color: #118fff;
+  }
+}
+@-moz-keyframes bluePulse {
+  from {
+    background-color: #118fff;
+  }
+  50% {
+    background-color: #006DCC;
+  }
+  to {
+    background-color: #118fff;
+  }
+}
+@keyframes bluePulse {
+  0% {
+    background-color: #118fff;
+  }
+  50% {
+    background-color: #006DCC;
+  }
+  100% {
+    background-color: #118fff;
+  }
+}
+@-webkit-keyframes bluePulseInner {
+  from {
+    color: #118fff;
+  }
+  50% {
+    color: #006DCC;
+  }
+  to {
+    color: #118fff;
+  }
+}
+@-moz-keyframes bluePulseInner {
+  from {
+    color: #118fff;
+  }
+  50% {
+    color: #006DCC;
+  }
+  to {
+    color: #118fff;
+  }
+}
+@keyframes bluePulseInner {
+  0% {
+    color: #118fff;
+  }
+  50% {
+    color: #006DCC;
+  }
+  100% {
+    color: #118fff;
+  }
+}
+@-webkit-keyframes redPulse {
+  from {
+    background-color: #ff3333;
+  }
+  50% {
+    background-color: #ff0000;
+  }
+  to {
+    background-color: #ff3333;
+  }
+}
+@-moz-keyframes redPulse {
+  from {
+    background-color: #ff3333;
+  }
+  50% {
+    background-color: #ff0000;
+  }
+  to {
+    background-color: #ff3333;
+  }
+}
+@keyframes redPulse {
+  0% {
+    background-color: #ff3333;
+  }
+  50% {
+    background-color: #ff0000;
+  }
+  100% {
+    background-color: #ff3333;
+  }
+}
+/************************************************************************
+* Modal popup properties
+***********************************************************************/
+.ellipsis-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ellipsis-overflow-nowrap {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/************************************************************************
+* Top navbar styles
+***********************************************************************/
+* {
+  box-sizing: border-box;
+}
+.login-header,
+.header-container {
+  width: 100%;
+  height: 116px;
+}
+.login-header-container {
+  background: rgba(0, 0, 0, 0);
+}
+.header-container .ambari-logo > img {
+  width: 162px;
+  height: 56px;
+  margin: 30px 0 0 30px;
+}
+.app-login-footer {
+  border-top: none;
+  padding: 0;
+  margin-top: -40px;
+}
+.app-login-footer .footer-links {
+  height: 100%;
+  text-align: center;
+  color: #ffffff;
+}
+.app-container {
+  position: relative;
+  height: 613px;
+}
+.app-container .app-description-container {
+  position: relative;
+  height: 100%;
+}
+.app-container .app-login-container {
+  position: relative;
+  height: 100%;
+}
+.app-container .app-login-container .alert-danger {
+  position: absolute;
+  width: 260px;
+  top: 10px;
+  background-color: rgba(242, 222, 222, 0.8);
+}
+.app-container .app-login-box {
+  position: relative;
+  float: right;
+  right: 0;
+  width: 350px;
+  height: 398px;
+  padding: 32px 0 0 45px;
+  margin-top: 185px;
+  background: #FFFFFF;
+  box-shadow: 2px 3px 7px 0px rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+.app-container .app-login-box .login-header-txt {
+  margin-bottom: 35px;
+  font-size: 24px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #333;
+}
+.app-container .app-login-box label {
+  width: 260px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 400px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  color: #333;
+}
+.app-container .app-login-box input.form-control {
+  margin-bottom: 10px;
+  width: 260px;
+  height: 40px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+.app-container .app-login-box input.form-control:focus {
+  border-color: #1291c1;
+  box-shadow: none;
+}
+.app-container .app-login-box .btn-success {
+  width: 260px;
+  height: 40px;
+  margin-top: 20px;
+  background-color: #1EB475;
+}
+.app-container .app-description-container .description-box {
+  width: 337px;
+  height: 155px;
+  margin-top: 430px;
+  font-size: 36px;
+  color: #ffffff;
+  font-weight: 600;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  -webkit-text-stroke: 1px #979797;
+  text-stroke: 1px #979797;
+}
+.app-container .app-description-container .first-des-txt {
+  position: relative;
+  height: 90px;
+  line-height: 90px;
+}
+.app-container .app-description-container .first-des-txt:before {
+  position: absolute;
+  content: url("/img/up-arrow@2x.png");
+  top: -23px;
+  left: -50px;
+}
+.app-container .app-description-container .first-des-txt:after {
+  position: absolute;
+  content: url("/img/down-arrow@2x.png");
+  right: 0;
+  top: 40px;
+}
+.app-container .app-description-container .second-des-txt {
+  height: 60px;
+  line-height: 60px;
+}

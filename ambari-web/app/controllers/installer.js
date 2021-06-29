@@ -305,22 +305,18 @@ App.InstallerController = App.WizardController.extend(App.Persist, {
         }
       }, this);
     }
-    // if data.items is empty, we show error modal end return to back step
-    if (data.items && data.items.length) {
-      data.items.sortProperty('VersionDefinition.stack_version').reverse().forEach(function (versionDefinition) {
-        // to display repos panel, should map all available operating systems including empty ones
-        var stackInfo = {};
-        stackInfo.isStacksExistInDb = isStacksExistInDb;
-        stackInfo.stacks = stacks;
-        stackInfo.oses = oses;
-        stackInfo.repos = repos;
-        this.getSupportedOSList(versionDefinition, stackInfo, params.dfd);
-      }, this);
-    } else {
-      App.showAlertPopup(Em.I18n.t('common.error'), Em.I18n.t('installer.step1.noVersionDefinitions'), function() {
-        App.router.send('back');
-      });
+    if (!data.items || !data.items.length) {
+      this.setSelected(true, params.dfd);
     }
+    data.items.sortProperty('VersionDefinition.stack_version').reverse().forEach(function (versionDefinition) {
+      // to display repos panel, should map all available operating systems including empty ones
+      var stackInfo = {};
+      stackInfo.isStacksExistInDb = isStacksExistInDb;
+      stackInfo.stacks = stacks;
+      stackInfo.oses = oses;
+      stackInfo.repos = repos;
+      this.getSupportedOSList(versionDefinition, stackInfo, params.dfd);
+    }, this);
   },
 
   mergeChanges: function (repos, oses, stacks) {
@@ -358,7 +354,8 @@ App.InstallerController = App.WizardController.extend(App.Persist, {
       stacks.sortProperty('id').set('lastObject.isSelected', true);
     }
     this.set('content.stacks', App.Stack.find());
-    App.set('currentStackVersion', App.Stack.find().findProperty('isSelected').get('stackNameVersion'));
+    var selected = App.Stack.find().findProperty('isSelected');
+    App.set('currentStackVersion', selected ? selected.get('stackNameVersion') : null);
     dfd.resolve();
   },
 
@@ -709,23 +706,6 @@ App.InstallerController = App.WizardController.extend(App.Persist, {
     });
   },
 
-  showStackErrorAndSkipStepIfNeeded: function (response) {
-    var stackName = response.Versions.stack_name;
-    var stackVersion = response.Versions.stack_version;
-    var header = Em.I18n.t('installer.step1.useLocalRepo.getSurpottedOs.stackError.title').format(stackName, stackVersion);
-    var body = response.Versions['stack-errors'].join('. ');
-    this.decrementProperty('loadStacksRequestsCounter');
-    App.showAlertPopup(header, body);
-    if (this.get('loadStacksRequestsCounter') === 0 && !App.Stack.find().toArray().length) {
-      var wizardStep0Controller = App.router.get('wizardStep0Controller');
-      wizardStep0Controller.set('hasNotStacksAvailable', true);
-      App.router.send('gotoStep' + 0);
-      var installationErrorHeader = Em.I18n.t('installer.step1.useLocalRepo.getSurpottedOs.noStacksError.title');
-      var installationErrorBody = Em.I18n.t('installer.step1.useLocalRepo.getSurpottedOs.noStacksError.body');
-      App.showAlertPopup(installationErrorHeader, installationErrorBody);
-    }
-  },
-
   /**
    * onSuccess callback for getSupportedOSList.
    */
@@ -738,38 +718,19 @@ App.InstallerController = App.WizardController.extend(App.Persist, {
       existedOS.isSelected = true;
       existedMap[existedOS.OperatingSystems.os_type] = existedOS;
     });
-    if (response.Versions && response.Versions['stack-errors'] && response.Versions['stack-errors'].length) {
-      this.showStackErrorAndSkipStepIfNeeded(response);
-      return;
-    }
     response.operating_systems.forEach(function(supportedOS) {
       if(!existedMap[supportedOS.OperatingSystems.os_type]) {
         supportedOS.isSelected = false;
         existedOS.push(supportedOS);
       } else {
-        if (stack_default) { // only overwrite if it is stack default, otherwise use url from /version_definition
-          existedMap[supportedOS.OperatingSystems.os_type].repositories.forEach(function (repo) {
-            supportedOS.repositories.forEach(function (supportedRepo) {
-              if (supportedRepo.Repositories.repo_id == repo.Repositories.repo_id) {
-                repo.Repositories.base_url = supportedRepo.Repositories.base_url;
-                repo.Repositories.default_base_url = supportedRepo.Repositories.default_base_url;
-                repo.Repositories.latest_base_url = supportedRepo.Repositories.latest_base_url;
-                repo.Repositories.components = supportedRepo.Repositories.components;
-                repo.Repositories.distribution = supportedRepo.Repositories.distribution;
-              }
-            });
+        existedMap[supportedOS.OperatingSystems.os_type].repositories.forEach(function (repo) {
+          supportedOS.repositories.forEach(function (supportedRepo) {
+            if (supportedRepo.Repositories.repo_id == repo.Repositories.repo_id) {
+              repo.Repositories.components = supportedRepo.Repositories.components;
+              repo.Repositories.distribution = supportedRepo.Repositories.distribution;
+            }
           });
-        }
-        else{
-          existedMap[supportedOS.OperatingSystems.os_type].repositories.forEach(function (repo) {
-            supportedOS.repositories.forEach(function (supportedRepo) {
-              if (supportedRepo.Repositories.repo_id == repo.Repositories.repo_id) {
-                repo.Repositories.components = supportedRepo.Repositories.components;
-                repo.Repositories.distribution = supportedRepo.Repositories.distribution;
-              }
-            });
-          });
-        }
+        });
       }
     });
 
@@ -960,10 +921,12 @@ App.InstallerController = App.WizardController.extend(App.Persist, {
       var os = selectedStack.get('operatingSystems').findProperty('id', params.osId);
       var repo = os.get('repositories').findProperty('repoId', params.repoId);
       if (repo) {
+        var title = Ember.Handlebars.Utils.escapeExpression(request.status + ":" + request.statusText);
+        var content =  Ember.Handlebars.Utils.escapeExpression($.parseJSON(request.responseText) ? $.parseJSON(request.responseText).message : "");
         repo.setProperties({
           validation: 'INVALID',
-          errorTitle: request.status + ":" + request.statusText,
-          errorContent: $.parseJSON(request.responseText) ? $.parseJSON(request.responseText).message : ""
+          errorTitle: title,
+          errorContent: content
         });
       }
     }

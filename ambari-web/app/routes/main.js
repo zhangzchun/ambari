@@ -170,6 +170,9 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
       }),
       heatmap: Em.Route.extend({
         route: '/heatmap',
+        breadcrumbs: {
+          label: Em.I18n.t('common.heatmap')
+        },
         connectOutlets: function (router, context) {
           router.get('mainController').dataLoading().done(function () {
             router.get('mainChartsController').connectOutlet('mainChartsHeatmap');
@@ -191,6 +194,9 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
     }),
     configHistory: Em.Route.extend({
       route: '/config_history',
+      breadcrumbs: {
+          label: Em.I18n.t('common.confighistory')
+      },
       connectOutlets: function (router, context) {
         App.loadTimer.start('Config History Page');
         router.set('mainDashboardController.selectedCategory', 'configHistory');
@@ -258,6 +264,9 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
 
       summary: Em.Route.extend({
         route: '/summary',
+        breadcrumbs: {
+	  label: Em.I18n.t('common.summary')
+	},
         connectOutlets: function (router, context) {
           router.get('mainController').dataLoading().done(function() {
             var controller = router.get('mainHostDetailsController');
@@ -285,6 +294,9 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
 
       configs: Em.Route.extend({
         route: '/configs',
+        breadcrumbs: {
+	  label: Em.I18n.t('common.configs')
+	},
         connectOutlets: function (router, context) {
           router.get('mainController').isLoading.call(router.get('clusterController'), 'isConfigsPropertiesLoaded').done(function () {
             router.get('mainHostDetailsController').connectOutlet('mainHostConfigs');
@@ -297,6 +309,9 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
 
       alerts: Em.Route.extend({
         route: '/alerts',
+        breadcrumbs: {
+	  label: Em.I18n.t('common.alerts')
+	},
         connectOutlets: function (router, context) {
           router.get('mainHostDetailsController').connectOutlet('mainHostAlerts');
         },
@@ -307,6 +322,9 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
 
       metrics: Em.Route.extend({
         route: '/metrics',
+        breadcrumbs: {
+	  label: Em.I18n.t('common.metrics')
+	},
         connectOutlets: function (router, context) {
           router.get('mainHostDetailsController').connectOutlet('mainHostMetrics');
         }
@@ -427,6 +445,7 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
   admin: Em.Route.extend({
     route: '/admin',
     breadcrumbs: {
+      label: Em.I18n.t('menu.item.admin'),
       disabled: true
     },
     enter: function (router, transition) {
@@ -748,6 +767,7 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
   services: Em.Route.extend({
 
     breadcrumbs: {
+      label: Em.I18n.t('menu.item.services'),
       disabled: true
     },
 
@@ -803,6 +823,9 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
       }),
       summary: Em.Route.extend({
         route: '/summary',
+        breadcrumbs: {
+		label: Em.I18n.t('common.summary')
+	},
         connectOutlets: function (router, context) {
           App.loadTimer.start('Service Summary Page');
           var item = router.get('mainServiceItemController.content');
@@ -817,6 +840,9 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
       }),
       metrics: Em.Route.extend({
         route: '/metrics',
+        breadcrumbs: {
+          label: Em.I18n.t('common.metrics')
+        },
         connectOutlets: function (router, context) {
           var item = router.get('mainServiceItemController.content');
           router.get('mainServiceItemController').connectOutlet('mainServiceInfoMetrics', item);
@@ -824,6 +850,9 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
       }),
       configs: Em.Route.extend({
         route: '/configs',
+        breadcrumbs: {
+          label: Em.I18n.t('common.configs')
+        },
         connectOutlets: function (router, context) {
           App.loadTimer.start('Service Configs Page');
           router.get('mainController').dataLoading().done(function () {
@@ -855,6 +884,9 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
       }),
       heatmaps: Em.Route.extend({
         route: '/heatmaps',
+        breadcrumbs: {
+          label: Em.I18n.t('common.heatmap')
+        },
         connectOutlets: function (router, context) {
           App.loadTimer.start('Service Heatmaps Page');
           router.get('mainController').dataLoading().done(function () {

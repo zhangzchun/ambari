@@ -25,13 +25,13 @@ module.exports = {
    * List of monthes short names
    * @type {string[]}
    */
-  dateMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  dateMonths: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
 
   /**
    * List of days short names
    * @type {string[]}
    */
-  dateDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+  dateDays: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
 
   /**
    * Add leading zero
@@ -57,7 +57,7 @@ module.exports = {
     if (!validator.isValidInt(timestamp)) {
       return timestamp;
     }
-    format = format || 'ddd, MMM DD, YYYY HH:mm';
+    format = format || 'YYYY-MM-DD HH:mm';
 
     return moment((new Date(timestamp))).format(format);
   },
@@ -73,11 +73,11 @@ module.exports = {
     if (!validator.isValidInt(timestamp)) {
       return timestamp;
     }
-    var format = 'ddd MMM DD YYYY';
+    var format = 'YYYY/MMM/DD';
     var date = moment((new Date(timestamp))).format(format);
     var today = moment((new Date())).format(format);
     if (date === today) {
-      return 'Today ' + (new Date(timestamp)).toLocaleTimeString();
+      return '今天 ' + (new Date(timestamp)).toLocaleTimeString();
     }
     return date;
   },
@@ -109,11 +109,16 @@ module.exports = {
     }
     var startTimeSummary = '';
     if (new Date(timestamp).setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0)) { //today
-      startTimeSummary = 'Today ' + this.dateFormatZeroFirst(startDate.getHours()) + ':' + this.dateFormatZeroFirst(startDate.getMinutes());
+      startTimeSummary = '今天 ' + this.dateFormatZeroFirst(startDate.getHours()) + ':' + this.dateFormatZeroFirst(startDate.getMinutes());
     } else {
+      /*
       startTimeSummary = days[startDate.getDay()] + ' ' + months[startDate.getMonth()] + ' ' +
         this.dateFormatZeroFirst(startDate.getDate()) + ' ' + startDate.getFullYear() + ' '
         + this.dateFormatZeroFirst(startDate.getHours()) + ':' + this.dateFormatZeroFirst(startDate.getMinutes());
+      */
+      startTimeSummary = startDate.getFullYear() + '-' + months[startDate.getMonth()] + '-' + 
+  	this.dateFormatZeroFirst(startDate.getDate()) + ' ' + 
+  	this.dateFormatZeroFirst(startDate.getHours()) + ':' + this.dateFormatZeroFirst(startDate.getMinutes());
     }
     return startTimeSummary;
   },
@@ -169,7 +174,7 @@ module.exports = {
     let duration = '';
 
     if (time === 0) {
-      return '0s';
+      return '0秒';
     }
 
     const oneSecMs = 1000;
@@ -178,15 +183,15 @@ module.exports = {
     const oneDayMs = 86400000;
     let days, hours, minutes, seconds;
 
-    [days, time] = this.extractTimeUnit(time, oneDayMs, 'd');
-    [hours, time] = this.extractTimeUnit(time, oneHourMs, 'h');
-    [minutes, time] = this.extractTimeUnit(time, oneMinMs, 'm');
+    [days, time] = this.extractTimeUnit(time, oneDayMs, '天');
+    [hours, time] = this.extractTimeUnit(time, oneHourMs, '时');
+    [minutes, time] = this.extractTimeUnit(time, oneMinMs, '分');
     duration += days + hours + minutes;
     if (fullTime < oneDayMs) {
-      [seconds, time] = this.extractTimeUnit(time, oneSecMs, 's');
+      [seconds, time] = this.extractTimeUnit(time, oneSecMs, '秒');
       duration += seconds;
       if (fullTime < oneSecMs) {
-        duration += '1s';
+        duration += '1秒';
       }
     }
 

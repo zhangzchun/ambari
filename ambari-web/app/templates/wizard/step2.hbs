@@ -38,7 +38,7 @@
           <div class="row">
             <div class="col-md-8">
               {{view Ember.TextArea id="host-names" class="form-control" valueBinding="content.installOptions.hostNames"
-              rows="5" placeholder="host names" data-qa="target-hosts-textarea"}}
+              rows="5" placeholder="主机名" data-qa="target-hosts-textarea"}}
             </div>
             {{#if hostsError}}
               <div class="col-md-4">
@@ -52,7 +52,7 @@
       <div {{QAAttr "host-registration-info"}}>
         <div class="step-title" {{QAAttr "host-registration-info-title"}}>{{t installer.step2.sshKey}}</div>
         <div class="row radio-button-options">
-          <div class="col-sm-5 row">
+          <!--div` class="col-sm-5 row">
             <div class="col-sm-1">
               {{#view view.providingSSHKeyRadioButton labelIdentifier="ssh-key-radio-button"}}{{/view}}
             </div>
@@ -75,7 +75,7 @@
                 {{t installer.step2.install.perform_on_hosts}}
               {{/if}}
             </div>
-          </div>
+          </div-->
           <div class="col-sm-5 row">
             <div class="col-sm-1">
               {{#view view.manualRegistrationRadioButton labelIdentifier="manual-registration-radio-button"}}{{/view}}
@@ -102,7 +102,7 @@
             </div>
           </div>
         </div>
-
+        <!--
         {{#if useSSH}}
           <div class="ssh-key-input">
             {{#if view.isFileApi}}
@@ -183,6 +183,7 @@
             {{! ambari agent user end }}
           </div>
         {{/if}}
+        -->
       </div>
       {{#if isAddHostWizard}}
         <br>

@@ -150,19 +150,13 @@ App.WizardStep7Controller = Em.Controller.extend(App.ServerValidatorMixin, App.E
    * Total number of recommendation and validation issues
    * @type {number}
    */
-  issuesCounter: Em.computed.sumProperties('validationsCounter', 'suggestionsCounter'),
+  issuesCounter: 0,
 
   /**
    * Number of ui-side validation issues
    * @type {number}
    */
   validationsCounter: 0,
-
-  /**
-   * Number of ui-side suggestion issues
-   * @type {number}
-   */
-  suggestionsCounter: 0,
 
   /**
    * Tab objects to represent each config category tab
@@ -2114,11 +2108,11 @@ App.WizardStep7Controller = Em.Controller.extend(App.ServerValidatorMixin, App.E
     var recommendations = this.get('changedProperties.length');
     var validations = this.get('stepConfigs').mapProperty('configsWithErrors.length').reduce(Em.sum, 0);
     var configErrorList = this.get('configErrorList');
-    this.set('suggestionsCounter', recommendations + configErrorList.get('issues.length') + configErrorList.get('criticalIssues.length'));
+    this.set('hasErrors', Boolean(validations + configErrorList.get('criticalIssues.length')));
+    this.set('issuesCounter', recommendations + validations + configErrorList.get('issues.length') + configErrorList.get('criticalIssues.length'));
     if (validations !== this.get('validationsCounter')) {
       this.ringBell();
     }
-    this.set('hasErrors', Boolean(validations + configErrorList.get('criticalIssues.length')));
     this.set('validationsCounter', validations);
   }.observes('changedProperties.length', 'stepConfigs.@each.configsWithErrors.length', 'configErrorList.issues.length', 'configErrorList.criticalIssues.length'),
 

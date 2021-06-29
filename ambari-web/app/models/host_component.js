@@ -144,25 +144,16 @@ App.HostComponent = DS.Model.extend({
   }.property('componentName', 'App.components.nonHDP'),
 
   /**
-   * @type {number}
-   */
-  warningCount: 0,
-  /**
-   * @type {number}
-   */
-  criticalCount: 0,
-
-  /**
    * Does component have Critical Alerts
    * @type {boolean}
    */
-  hasCriticalAlerts: Em.computed.gte('criticalCount', 0),
+  hasCriticalAlerts: false,
 
   /**
    * Number of the Critical and Warning alerts for current component
    * @type {number}
    */
-  alertsCount: Em.computed.sumProperties('warningCount', 'criticalCount'),
+  alertsCount: 0,
 
   statusClass: function () {
     return this.get('isActive') ? this.get('workStatus') : 'icon-medkit';
@@ -356,16 +347,6 @@ App.HostComponentActionMap = {
         hasSubmenu: hasMultipleMasterComponentGroups,
         submenuOptions: hasMultipleMasterComponentGroups ? this.getMastersSubmenu(ctx, 'restartCertainHostComponents') : []
       },
-      //Ongoing feature. Will later replace RESTART_ALL
-      RESTART_SERVICE: {
-        action: 'restartServiceAllComponents',
-        context: ctx.get('serviceName'),
-        label: Em.I18n.t('restart.service.rest.context').format(ctx.get('displayName')),
-        cssClass: 'glyphicon glyphicon-time',
-        disabled: false,
-        hasSubmenu: true,
-        submenuOptions: ctx.get('controller.restartOptions')
-      },
       RESTART_NAMENODES: {
         action: '',
         label: Em.I18n.t('rollingrestart.dialog.title').format(pluralize(App.format.role('NAMENODE', false))),
@@ -391,7 +372,7 @@ App.HostComponentActionMap = {
         action: 'regenerateKeytabFileOperations',
         label: Em.I18n.t('admin.kerberos.button.regenerateKeytabs'),
         cssClass: 'glyphicon glyphicon-repeat',
-        isHidden: !App.get('isKerberosEnabled')
+        isHidden: !App.get('isKerberosEnabled') || App.get('router.mainAdminKerberosController.isManualKerberos')
       },
       REFRESHQUEUES: {
         action: 'refreshYarnQueues',
@@ -574,22 +555,6 @@ App.HostComponentActionMap = {
         label: Em.I18n.t('admin.nameNodeFederation.button.enable'),
         cssClass: 'icon icon-sitemap',
         disabled: !App.get('isHaEnabled')
-      },
-      UPDATE_REPLICATION: {
-        action: 'updateHBaseReplication',
-        customCommand: 'UPDATE_REPLICATION',
-        context: Em.I18n.t('services.service.actions.run.updateHBaseReplication.context'),
-        label: Em.I18n.t('services.service.actions.run.updateHBaseReplication.label'),
-        cssClass: 'glyphicon glyphicon-refresh',
-        disabled: false
-      },
-      STOP_REPLICATION: {
-        action: 'stopHBaseReplication',
-        customCommand: 'STOP_REPLICATION',
-        context: Em.I18n.t('services.service.actions.run.stopHBaseReplication.context'),
-        label: Em.I18n.t('services.service.actions.run.stopHBaseReplication.label'),
-        cssClass: 'glyphicon glyphicon-refresh',
-        disabled: false
       }
     };
   },

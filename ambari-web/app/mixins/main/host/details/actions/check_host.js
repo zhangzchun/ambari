@@ -759,7 +759,7 @@ App.CheckHostMixin = Em.Mixin.create({
     }
 
     hosts.unshift({
-      name: 'All Hosts',
+      name: '所有主机',
       warnings: warnings
     });
     this.set('warnings', warnings);
@@ -996,7 +996,7 @@ App.CheckHostMixin = Em.Mixin.create({
     }
 
     hosts.unshift({
-      name: 'All Hosts',
+      name: '所有主机',
       warnings: warnings
     });
     this.set('warnings', warnings);

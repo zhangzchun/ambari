@@ -1,0 +1,509 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * This file only for variables and mixins!
+ */
+/************************************************************************
+* Health status(service/host/host component health)icon colors
+***********************************************************************/
+/************************************************************************
+* Health status(service/host/host component health)icon colors ends
+***********************************************************************/
+@-webkit-keyframes orangePulse {
+  from {
+    background-color: #FDB82F;
+  }
+  50% {
+    background-color: #fd910e;
+  }
+  to {
+    background-color: #FDB82F;
+  }
+}
+@-moz-keyframes orangePulse {
+  from {
+    background-color: #FDB82F;
+  }
+  50% {
+    background-color: #fd910e;
+  }
+  to {
+    background-color: #FDB82F;
+  }
+}
+@keyframes orangePulse {
+  0% {
+    background-color: #FDB82F;
+  }
+  50% {
+    background-color: #fd910e;
+  }
+  100% {
+    background-color: #FDB82F;
+  }
+}
+@-webkit-keyframes bluePulse {
+  from {
+    background-color: #118fff;
+  }
+  50% {
+    background-color: #006DCC;
+  }
+  to {
+    background-color: #118fff;
+  }
+}
+@-moz-keyframes bluePulse {
+  from {
+    background-color: #118fff;
+  }
+  50% {
+    background-color: #006DCC;
+  }
+  to {
+    background-color: #118fff;
+  }
+}
+@keyframes bluePulse {
+  0% {
+    background-color: #118fff;
+  }
+  50% {
+    background-color: #006DCC;
+  }
+  100% {
+    background-color: #118fff;
+  }
+}
+@-webkit-keyframes bluePulseInner {
+  from {
+    color: #118fff;
+  }
+  50% {
+    color: #006DCC;
+  }
+  to {
+    color: #118fff;
+  }
+}
+@-moz-keyframes bluePulseInner {
+  from {
+    color: #118fff;
+  }
+  50% {
+    color: #006DCC;
+  }
+  to {
+    color: #118fff;
+  }
+}
+@keyframes bluePulseInner {
+  0% {
+    color: #118fff;
+  }
+  50% {
+    color: #006DCC;
+  }
+  100% {
+    color: #118fff;
+  }
+}
+@-webkit-keyframes redPulse {
+  from {
+    background-color: #ff3333;
+  }
+  50% {
+    background-color: #ff0000;
+  }
+  to {
+    background-color: #ff3333;
+  }
+}
+@-moz-keyframes redPulse {
+  from {
+    background-color: #ff3333;
+  }
+  50% {
+    background-color: #ff0000;
+  }
+  to {
+    background-color: #ff3333;
+  }
+}
+@keyframes redPulse {
+  0% {
+    background-color: #ff3333;
+  }
+  50% {
+    background-color: #ff0000;
+  }
+  100% {
+    background-color: #ff3333;
+  }
+}
+/************************************************************************
+* Modal popup properties
+***********************************************************************/
+.ellipsis-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ellipsis-overflow-nowrap {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/************************************************************************
+* Top navbar styles
+***********************************************************************/
+#modal {
+  outline: none;
+}
+#modal-label {
+  margin-left: 20px;
+  margin-right: 20px;
+  text-indent: -20px;
+  line-height: 1.3em;
+}
+#modal-label a:not(.disabled) {
+  cursor: pointer;
+}
+.host-component-popup-wrap {
+  min-height: 220px;
+}
+.host-component-popup-wrap .task-top-wrap .operation-name-top {
+  width: 36%;
+  padding-left: 20px;
+  float: left;
+  text-align: left;
+}
+.host-component-popup-wrap #service-info .show-more {
+  width: 98.8%;
+  min-height: 20px;
+  cursor: pointer;
+  text-align: center;
+  padding: 10px 10px 10px 0;
+  font-size: 16px;
+}
+.host-component-popup-wrap #host-info,
+.host-component-popup-wrap #service-info {
+  overflow: auto;
+  width: 100%;
+  max-height: 340px;
+}
+.host-component-popup-wrap #host-info.scheduled,
+.host-component-popup-wrap #service-info.scheduled {
+  max-height: 255px;
+}
+.host-component-popup-wrap #host-info .log-list-wrap,
+.host-component-popup-wrap #service-info .log-list-wrap,
+.host-component-popup-wrap #host-log .log-list-wrap {
+  padding: 10px 10px 10px 20px;
+}
+.host-component-popup-wrap #host-info .progress-wrapper,
+.host-component-popup-wrap #service-info .progress-wrapper,
+.host-component-popup-wrap #host-log .progress-wrapper {
+  padding: 8px 0px;
+}
+.host-component-popup-wrap #host-info .progress-wrapper .progress,
+.host-component-popup-wrap #service-info .progress-wrapper .progress,
+.host-component-popup-wrap #host-log .progress-wrapper .progress {
+  margin-bottom: 0;
+}
+.host-component-popup-wrap #host-info .progress-percentage,
+.host-component-popup-wrap #service-info .progress-percentage,
+.host-component-popup-wrap #host-log .progress-percentage {
+  padding: 8px 5px;
+}
+.host-component-popup-wrap #host-info td,
+.host-component-popup-wrap #service-info td,
+.host-component-popup-wrap #host-log td {
+  vertical-align: middle;
+}
+.host-component-popup-wrap .status-dropdown .btn.dropdown-toggle:first-child {
+  min-width: 150px;
+  padding: 10px;
+  position: relative;
+  text-align: left;
+}
+.host-component-popup-wrap .status-dropdown .btn.dropdown-toggle:first-child .caret {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+}
+.host-component-popup-wrap .status-dropdown ul.dropdown-menu {
+  min-width: 150px;
+}
+.modal {
+  top: 35px;
+}
+.modal .modal-body .top-wrap.top-wrap-header {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+}
+@media (min-width: 768px) {
+  .modal {
+    top: 15px;
+  }
+}
+.modal-body {
+  max-height: 600px;
+  overflow-y: auto;
+}
+/*90% width wizard modal window start*/
+.wizard-modal-wrapper.disable-security-modal .modal .modal-body {
+  background-color: rgba(233, 233, 233, 0.5);
+}
+.wizard-modal-wrapper.disable-security-modal .modal .modal-body .wizard-content {
+  background-color: transparent;
+}
+.wizard-modal-wrapper .modal .modal-dialog {
+  margin-top: 0;
+}
+.wizard-modal-wrapper .modal .modal-body {
+  padding: 0;
+}
+.wizard-modal-wrapper .modal .modal-body .wizard {
+  border: none;
+}
+.wizard-modal-wrapper .modal .modal-body div.error {
+  color: #b94a48;
+}
+.wizard-modal-wrapper .modal .modal-body div.error .help-block {
+  color: #b94a48;
+}
+.wizard-modal-wrapper .modal .modal-body div.error input {
+  border-color: #b94a48;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.wizard-modal-wrapper .content {
+  padding: 0;
+}
+.wizard-modal-wrapper .table-striped tbody tr:nth-child(odd) td .table-striped tbody tr:nth-child(odd) td,
+.wizard-modal-wrapper tr:nth-child(even) th {
+  background-color: transparent;
+}
+/*90% width wizard modal window end*/
+/*90% width modal (non-wizard) window start*/
+.wide-modal-wrapper .modal .modal-body div.error {
+  color: #b94a48;
+}
+.wide-modal-wrapper .modal .modal-body div.error .help-block {
+  color: #b94a48;
+}
+.wide-modal-wrapper .modal .modal-body div.error input {
+  border-color: #b94a48;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.wide-modal-wrapper .content {
+  padding: 0;
+}
+.wide-modal-wrapper .table-striped tbody tr:nth-child(odd) td .table-striped tbody tr:nth-child(odd) td,
+.wide-modal-wrapper tr:nth-child(even) th {
+  background-color: transparent;
+}
+/*90% width modal window (non-wizard) end*/
+/*700px width modal window start*/
+.modal-690px-width .modal-body {
+  max-height: 403px;
+}
+/*700px width modal window end*/
+.manage-alert-notifications-popup .modal-body {
+  overflow: visible;
+}
+/*60% width modal window start*/
+.modal-edit-widget .modal-body .progress .bar-success {
+  background-image: linear-gradient(to bottom, #1EB475, #1EB475);
+  background-repeat: repeat-x;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#5AB400', endColorstr='#5AB400', GradientType=0);
+}
+.modal-edit-widget .modal-body .progress .bar-warning {
+  background-image: linear-gradient(to bottom, #e98a41, #e98a41);
+  background-repeat: repeat-x;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#FF8E00', endColorstr='#FF8E00', GradientType=0);
+}
+.modal-edit-widget .modal-body .progress .bar-danger {
+  background-image: linear-gradient(to bottom, #EF6162, #EF6162);
+  background-repeat: repeat-x;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff0000', endColorstr='#ff0000', GradientType=0);
+}
+.modal-edit-widget .modal-body .value-on-slider {
+  margin-top: 30px;
+}
+.common-modal-wrapper .modal-footer .footer-checkbox {
+  text-align: left;
+  margin-left: 22px;
+}
+.common-modal-wrapper .modal-body li.disabled a {
+  cursor: not-allowed;
+}
+.common-modal-wrapper .modal-body .form-horizontal .each-row {
+  margin-top: 10px;
+}
+.common-modal-wrapper .modal-body .form-horizontal .each-row.control-label {
+  float: left;
+  clear: both;
+}
+.common-modal-wrapper .modal-body .form-horizontal .override-controls .input-group input {
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}
+.common-modal-wrapper .modal-body .form-horizontal .override-controls .input-group .btn-group {
+  display: inline-block;
+  margin-left: -1px;
+}
+.common-modal-wrapper .modal-body .form-horizontal .override-controls .input-group .btn-group .btn {
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+}
+.common-modal-wrapper .modal-body .form-horizontal .override-controls .hosts-table-container {
+  width: 100%;
+  overflow: auto;
+}
+.common-modal-wrapper .modal-body .form-horizontal .override-controls table {
+  margin: 0 auto;
+}
+.common-modal-wrapper .modal-body .form-horizontal .override-controls table input[type="checkbox"] + label {
+  top: 0;
+}
+.common-modal-wrapper .modal-body .form-horizontal .override-controls .message {
+  color: #777;
+}
+.common-modal-wrapper .modal-body .form-horizontal .control-label:not(class=["col-md*"]) {
+  width: auto;
+}
+.common-modal-wrapper .content {
+  padding: 0;
+}
+.common-modal-wrapper .table-striped tbody tr:nth-child(odd) td .table-striped tbody tr:nth-child(odd) td,
+.common-modal-wrapper tr:nth-child(even) th {
+  background-color: transparent;
+}
+/*60% width modal window end*/
+/* modal fill screen popup */
+.full-height-modal .modal.with-footer .modal-body {
+  max-height: calc(100% - (15px*2 + 75px + 57px));
+}
+/* modal fill screen popup end */
+#logs-popup .controls-block {
+  margin-bottom: 10px;
+}
+#logs-popup .controls-block a {
+  padding: 5px;
+  cursor: pointer;
+}
+.host-progress-popup .modal.with-footer {
+  padding-right: 0;
+}
+.host-progress-popup .modal.with-footer .modal-lg.modal-dialog {
+  width: 98%;
+}
+.host-progress-popup .task-detail-info .task-detail-log-info {
+  padding-top: 10px;
+}
+.host-progress-popup .task-detail-info.task-detail-info-tabbed .task-detail-log-info {
+  padding-top: 0;
+}
+.host-progress-popup .task-detail-info.task-detail-info-tabbed .task-top-wrap {
+  padding: 0;
+  border-bottom: none;
+}
+.host-progress-popup .task-detail-info.task-detail-info-tabbed .task-detail-nav {
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+.host-progress-popup .task-detail-info.task-detail-info-tabbed .log-tail-content {
+  width: 100%;
+  padding: 15px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  white-space: normal;
+  margin: 0;
+  position: relative;
+}
+.host-progress-popup .task-detail-info.task-detail-info-tabbed .log-tail-content > div {
+  margin: 0;
+  padding: 0;
+}
+.host-progress-popup .task-detail-info.task-detail-info-tabbed .log-tail-content > div:hover {
+  background: #ccc;
+}
+.host-progress-popup .task-detail-info.task-detail-info-tabbed .log-tail-content .log-tail-spinner-container {
+  position: absolute;
+  top: 0;
+  left: 3px;
+}
+.host-progress-popup .task-detail-info.task-detail-info-tabbed #infinite-scroll-append {
+  text-align: center;
+}
+.host-progress-popup .task-detail-info.task-detail-info-tabbed #infinite-scroll-append .glyphicon.glyphicon-spinner {
+  font-size: 24px;
+}
+.modal-xlg {
+  width: 98%;
+}
+.modal-xlg .wizard .container {
+  width: 1236px;
+}
+.modal-graph-line .modal-dialog {
+  width: 820px;
+}
+.modal-graph-line .modal-body {
+  min-height: 450px !important;
+  overflow: hidden;
+}
+.modal-graph-line .modal-body .corner-icon {
+  position: absolute;
+  right: 20px;
+  text-decoration: none;
+}
+.modal-graph-line .modal-body .corner-icon .glyphicon-save {
+  color: #555;
+}
+.modal-graph-line .modal-body .export-graph-list {
+  top: auto;
+  right: 20px;
+}
+.modal-body .api-error {
+  max-height: 403px;
+  word-wrap: break-word;
+  overflow: auto;
+}

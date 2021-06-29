@@ -27,7 +27,8 @@ try {
   browserLanguage = navigator.language.slice(0, 2);
   require('locales/' + browserLanguage +'/messages');
 } catch (error) {
-  require('messages');
+  browserLanguage = navigator.language.slice(0, 2);
+  require('messages-' + browserLanguage);
 }
 
 require('utils');

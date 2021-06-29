@@ -18,7 +18,11 @@
 
 
 var App = require('app');
-
+if(App.db.getAuthenticated()) {
+  if($("#wrapper").find(".wrapper-img")) {
+    $("#wrapper").removeClass("wrapper-img");
+  }
+}
 App.ApplicationController = Em.Controller.extend(App.Persist, {
 
   name: 'applicationController',
